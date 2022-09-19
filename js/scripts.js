@@ -1,12 +1,3 @@
-/*let verbsArray = [
-    ["cut", "cut", "cut", "резать"],
-    ["break", "broke", "broken", "ломать"],
-    ["bring", "brought", "brought", "приносить"]
-];*/
-/*fetch('https://drive.google.com/uc?export=download&id=1gmjr2X0WIKii2mhakamP8zfKPFwKbQbe').then((data) => {
-    console.log(data);
-})*/
-const testLink = "https://raw.githubusercontent.com/Pec3maker/android_labs/main/JsonLab/recipes.json";
 const verbsLink = "https://api.npoint.io/2035457e2b96b215b654";
 let verbsArray = [];
 let str = "";
