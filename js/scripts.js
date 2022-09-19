@@ -49,7 +49,7 @@ function GenerateTask() {
     console.log(inputField);
 }
 function GetResult() {
-    let userAnswer = inputField.value.split(/[\s,]+/);
+    let userAnswer = inputField.value.trim().split(/[\s,]+/);
     CheckResult(userAnswer, verbsArray[rndVerb]);
     inputField.value = "";
 }
@@ -64,7 +64,7 @@ function CheckResult(userAnswer, initialLine) {
     }
     for (let i = 0; i < userAnswer.length; i++) {
         wordsWithMistakes.push(userAnswer[i]);
-        if (userAnswer[i] === initialLine[i]) {
+        if (userAnswer[i].toLowerCase() === initialLine[i]) {
             numberOfRight++;
             wordsWithMistakes[i] += "\n";
         }
