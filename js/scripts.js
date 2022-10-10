@@ -8,13 +8,18 @@ fetch(verbsLink)
     function() {
         GenerateTask();
         document.querySelector(".answer-btn").addEventListener("click", function() {
-            GetResult();
+            if (GetResult() === false) {
+                return;
+            }
             GenerateTask();
         });
     }
 )
 let alreadyUsedVerbs = [];
-let inputField = document.querySelector(".answer-field");
+let inputFirstForm = document.querySelector(".answer-field-first");
+let inputSecondForm = document.querySelector(".answer-field-second");
+let inputThirdForm = document.querySelector(".answer-field-third");
+let inputTranslateForm = document.querySelector(".answer-field-translation");
 let taskField = document.querySelector(".task-field");
 let checkResultsField = document.querySelector(".check-results-field");
 let rndVerb;
@@ -37,12 +42,17 @@ function GenerateTask() {
         alreadyUsedVerbs = [];
     }
     console.log(verbsArray[rndVerb][rndForm]);
-    console.log(inputField);
 }
 function GetResult() {
-    let userAnswer = inputField.value.trim().split(/[\s,]+/);
-    CheckResult(userAnswer, verbsArray[rndVerb]);
-    inputField.value = "";
+    let userAnswer = [inputFirstForm.value.trim(), inputSecondForm.value.trim(), inputThirdForm.value.trim(), inputTranslateForm.value.trim()];
+    //let userAnswer = inputField.value.trim().split(/[\s,]+/);
+    if (CheckResult(userAnswer, verbsArray[rndVerb]) === false) {
+        return false;
+    };
+    inputFirstForm.value = "";
+    inputSecondForm.value = "";
+    inputThirdForm.value = "";
+    inputTranslateForm.value = "";
 }
 function CheckResult(userAnswer, initialLine) {
     console.log(userAnswer);
@@ -50,14 +60,32 @@ function CheckResult(userAnswer, initialLine) {
     let numberOfRight = 0;
     let wordsWithMistakes = [];
     if (userAnswer.length !== initialLine.length) {
-        checkResultsField.textContent = "Введено недостаточное количество слов!";
-        return;
+        checkResultsField.textContent = "Введено неверное количество слов!";
+        return false;
     }
     for (let i = 0; i < userAnswer.length; i++) {
         wordsWithMistakes.push(userAnswer[i]);
         if (userAnswer[i].toLowerCase() === initialLine[i]) {
             numberOfRight++;
             wordsWithMistakes[i] += "\n";
+        }
+        else if (initialLine[i].includes("/")) {
+            let variants = initialLine[i].split("/");
+            let flag = false;
+            variants.forEach( el => {
+                if (!flag && userAnswer[i].toLowerCase() === el) {
+                    numberOfRight++;
+                    wordsWithMistakes[i] += "\n";
+                    flag = true;
+                }
+            });
+            if (!flag) {
+                wordsWithMistakes[i] += `=> ${initialLine[i]}\n`;
+            }
+            /*if (initialLine[i].includes(userAnswer[i].toLowerCase())) {
+                numberOfRight++;
+                wordsWithMistakes[i] += "\n";
+            }*/
         }
         else {
             wordsWithMistakes[i] += `=> ${initialLine[i]}\n`;
