@@ -1,25 +1,30 @@
 const verbsLink = "https://api.npoint.io/2035457e2b96b215b654";
-/*const audioFilePath = "https://raw.githubusercontent.com/thousandlemons/English-words-pronunciation-mp3-audio-download/master/data.json";
-let audioLinks = [];
-fetch(audioFilePath)
-  .then(response => response.json())
-  .then(data => audioLinks = data)*/
 let verbsArray = [];
 let alreadyUsedVerbs = [];
+let isAnsRight = [false, false, false, false];
 let inputFirstForm = document.querySelector(".answer-field-first");
 let inputSecondForm = document.querySelector(".answer-field-second");
 let inputThirdForm = document.querySelector(".answer-field-third");
 let inputTranslateForm = document.querySelector(".answer-field-translation");
+let inputForms = [inputFirstForm, inputSecondForm, inputThirdForm, inputTranslateForm];
 let taskField = document.querySelector(".task-field");
 let checkResultsField = document.querySelector(".check-results-field");
 let audioPlayer = document.querySelector(".task-audio");
 let audioFirst = document.querySelector(".audio-player-0");
 let audioSecond = document.querySelector(".audio-player-1");
 let audioThird = document.querySelector(".audio-player-2");
+let audioPlayers = [audioFirst, audioSecond, audioThird];
 let iconFirst = document.querySelector(".icon-0");
 let iconSecond = document.querySelector(".icon-1");
 let iconThird = document.querySelector(".icon-2");
 let iconTranslate = document.querySelector(".icon-3");
+let icons = [iconFirst, iconSecond, iconThird, iconTranslate];
+let cancelIcons = [document.querySelector(".cancel-icon-0"), document.querySelector(".cancel-icon-1"), 
+document.querySelector(".cancel-icon-2"), document.querySelector(".cancel-icon-3")]
+let rightAnswersBlocks = [document.querySelector(".right-answer-0"), document.querySelector(".right-answer-1"),
+document.querySelector(".right-answer-2"), document.querySelector(".right-answer-3")]
+let checkBtn =  document.querySelector(".check-btn");
+let nextBtn =  document.querySelector(".next-btn");
 let rndVerb;
 let rndForm;
 let str = "";
@@ -29,9 +34,14 @@ fetch(verbsLink)
 .then (
     function() {
         GenerateTask();
-        document.querySelector(".next-btn").addEventListener("click", function() {
+        nextBtn.addEventListener("click", function() {
             ClearForm();
             GenerateTask();
+        });
+        checkBtn.addEventListener("click", function() {
+            checkBtn.classList.remove("check-btn-show");
+            CheckResult();
+            nextBtn.classList.add("next-btn-show");
         });
         inputFirstForm.addEventListener("input", function() {
             CheckCorrectness(0, inputFirstForm, audioFirst, iconFirst);
@@ -53,10 +63,9 @@ function CheckCorrectness(i, form, customisableForm, icon) {
     if (userAns === verbsArray[rndVerb][i]) {
         form.classList.add("correct-input");
         icon.classList.add("icon-show");
-        //form.style.backgroundColor = "#97daad";
+        isAnsRight[i] = true;
         if (customisableForm != undefined) {
             customisableForm.classList.add("answer-audio-show");
-            //customisableForm.style.display = "block";
         }
     }
     else if (verbsArray[rndVerb][i].includes("/")) {
@@ -68,31 +77,27 @@ function CheckCorrectness(i, form, customisableForm, icon) {
             }
         });
         if (flag) {
-            //form.style.backgroundColor = "#97daad";
             form.classList.add("correct-input");
             icon.classList.add("icon-show");
+            isAnsRight[i] = true;
             if (customisableForm != undefined) {
                 customisableForm.classList.add("answer-audio-show");
-                //customisableForm.style.display = "block";
             }
         }
         else {
-            //form.style.backgroundColor = "white";
             form.classList.remove("correct-input");
             icon.classList.remove("icon-show");
+            isAnsRight[i] = false;
             if (customisableForm != undefined) {
                 customisableForm.classList.remove("answer-audio-show");
-                //customisableForm.style.display = "none";
             }
         }
     }
     else {
-        //form.style.backgroundColor = "white";
         icon.classList.remove("icon-show");
         form.classList.remove("correct-input");
         if (customisableForm != undefined) {
             customisableForm.classList.remove("answer-audio-show");
-            //customisableForm.style.display = "none";
         }
     }
 }
@@ -115,44 +120,49 @@ function GenerateTask() {
     else {
         audioPlayer.src = "";
     }
-    let isDefaultOk = true;
-    /*fetch(`https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][0]}.mp3`)
-    .then(response => {
-        if (response.status == 200) {
-            audioFirst.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][0]}.mp3`;
-        }
-        else {
-            audioFirst.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-to_${verbsArray[rndVerb][0]}.mp3`;
-        }
-    })*/
-    console.log(verbsArray[rndVerb][1].split("/")[0]);
     audioFirst.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][0].split("/")[0]}.mp3`;
     audioSecond.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][1].split("/")[0]}.mp3`;
     audioThird.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][2].split("/")[0]}.mp3`;
-    //document.querySelector(`.audio-player-3`).src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-${verbsArray[rndVerb][3]}.mp3`;
     alreadyUsedVerbs.push(rndVerb);
-    console.log(alreadyUsedVerbs);
     if (alreadyUsedVerbs.length === verbsArray.length) {
         alreadyUsedVerbs = [];
     }
 }
 function ClearForm() {
-    inputFirstForm.value = "";
-    inputSecondForm.value = "";
-    inputThirdForm.value = "";
-    inputTranslateForm.value = "";
-    inputFirstForm.classList.remove("correct-input");
-    inputSecondForm.classList.remove("correct-input");
-    inputThirdForm.classList.remove("correct-input");
-    inputTranslateForm.classList.remove("correct-input");
-    iconFirst.classList.remove("icon-show");
-    iconSecond.classList.remove("icon-show");
-    iconThird.classList.remove("icon-show");
-    iconTranslate.classList.remove("icon-show");
-    audioFirst.classList.remove("answer-audio-show");
-    audioSecond.classList.remove("answer-audio-show");
-    audioThird.classList.remove("answer-audio-show");
+    inputForms.forEach(form => {
+        form.value = "";
+        form.classList.remove("correct-input", "wrong-input");
+        form.readOnly = false;
+    });
+    icons.forEach(icon => {
+        icon.classList.remove("icon-show");
+    });
+    cancelIcons.forEach(icon => {
+        icon.classList.remove("icon-show");
+    });
+    audioPlayers.forEach(el => {
+        el.classList.remove("answer-audio-show");
+    });
+    rightAnswersBlocks.forEach(el => {
+        el.classList.remove("right-answer-show");
+    })
+    isAnsRight = [false, false, false, false];
+    checkBtn.classList.add("check-btn-show");
+    nextBtn.classList.remove("next-btn-show");
 }
-/*audioFirst.onerror = function() {
-    audioFirst.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-to_${verbsArray[rndVerb][0]}.mp3`;
-}*/
+function CheckResult() {
+    inputForms.forEach(form => {
+        form.readOnly = true;
+    });
+    isAnsRight.forEach((el, i) => {
+        if (el == false) {
+            inputForms[i].classList.add("wrong-input");
+            cancelIcons[i].classList.add("icon-show");
+            rightAnswersBlocks[i].textContent = verbsArray[rndVerb][i];
+            rightAnswersBlocks[i].classList.add("right-answer-show");
+            if (i !== 3) {
+                audioPlayers[i].classList.add("answer-audio-show");
+            }
+        }
+    });
+}

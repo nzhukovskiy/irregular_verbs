@@ -43,7 +43,14 @@ input {
     border: 2px solid #97daad;
     transition: .4s;
 }
+.wrong-input {
+    border: 2px solid #e63f53;
+    transition: .4s;
+}
 .next-btn {
+    display: none;
+}
+.next-btn-show {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,21 +63,44 @@ input {
     margin-top:20px;
     color: #5a5656;
 }
-
+.check-btn {
+    display: none;
+}
+.check-btn-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    background-color: #97daad;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top:20px;
+    color: #5a5656;
+}
 .fa-check {
    color: #97daad;
 }
+.fa-times {
+    color: #e63f53;
+ }
 .icon {
     display: none;
 }
 .icon-show {
     display: block;
     position: absolute;
-    left: 175px;
+    left: 200px;
     right: auto;
 }
-
-
+.right-answer {
+    display: none;
+}
+.right-answer-show {
+    display: block;
+    margin-left: 20px;
+}
 /*.input-audio-group i {
     display: none;
     color: #97daad;
@@ -100,6 +130,9 @@ input {
     .next-btn:hover {
         background-color: #3dc66a;
         transition: 0.4s;
+    }
+    input {
+        width: 200px;
     }
   }
   
