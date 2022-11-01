@@ -1,3 +1,6 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
 div {
     white-space: pre-line;
 }
@@ -10,10 +13,44 @@ div {
 }
 .input-audio-group {
     display: flex;
+    align-items: center;
+    height: 100px;
 }
 .single-input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-right: 40px;
 }
 .answer-audio {
     display: none;
+}
+input {
+    padding: 10px;
+    /*border-color: #a3a5a4;*/
+    outline: none;
+    border: 2px solid #a3a5a4;
+    border-radius: 5px;
+}
+.correct-input {
+    border: 2px solid #97daad;
+    transition: .4s;
+}
+.next-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    background-color: #97daad;
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+.fa-check {
+   
+    
+}
+.input-audio-group i {
+    display: none;
+    color: #97daad;
 }

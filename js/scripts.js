@@ -47,7 +47,8 @@ fetch(verbsLink)
 function CheckCorrectness(i, form, customisableForm) {
     let userAns = form.value.trim().toLowerCase();
     if (userAns === verbsArray[rndVerb][i]) {
-        form.style.backgroundColor = "#97daad";
+        form.classList.add("correct-input");
+        //form.style.backgroundColor = "#97daad";
         if (customisableForm != undefined) {
             customisableForm.style.display = "block";
         }
@@ -61,20 +62,23 @@ function CheckCorrectness(i, form, customisableForm) {
             }
         });
         if (flag) {
-            form.style.backgroundColor = "#97daad";
+            //form.style.backgroundColor = "#97daad";
+            form.classList.add("correct-input");
             if (customisableForm != undefined) {
                 customisableForm.style.display = "block";
             }
         }
         else {
-            form.style.backgroundColor = "white";
+            //form.style.backgroundColor = "white";
+            form.classList.remove("correct-input");
             if (customisableForm != undefined) {
                 customisableForm.style.display = "none";
             }
         }
     }
     else {
-        form.style.backgroundColor = "white";
+        //form.style.backgroundColor = "white";
+        form.classList.remove("correct-input");
         if (customisableForm != undefined) {
             customisableForm.style.display = "none";
         }
@@ -129,6 +133,10 @@ function ClearForm() {
     inputSecondForm.style.backgroundColor = "white";
     inputThirdForm.style.backgroundColor = "white";
     inputTranslateForm.style.backgroundColor = "white";
+    inputFirstForm.classList.remove("correct-input");
+    inputSecondForm.classList.remove("correct-input");
+    inputThirdForm.classList.remove("correct-input");
+    inputTranslateForm.classList.remove("correct-input");
     audioFirst.style.display = "none";
     audioSecond.style.display = "none";
     audioThird.style.display = "none";
