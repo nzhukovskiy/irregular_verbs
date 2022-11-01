@@ -20,10 +20,16 @@ div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 40px;
+}
+.audio-player {
+    margin-left: 30px;
 }
 .answer-audio {
     display: none;
+}
+.answer-audio-show {
+    display: block;
+    transition: 0.4s;
 }
 input {
     padding: 10px;
@@ -31,6 +37,7 @@ input {
     outline: none;
     border: 2px solid #a3a5a4;
     border-radius: 5px;
+    position: relative;
 }
 .correct-input {
     border: 2px solid #97daad;
@@ -40,17 +47,47 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 200px;
     height: 50px;
     background-color: #97daad;
     text-transform: uppercase;
     border-radius: 5px;
+    cursor: pointer;
+    margin-top:20px;
+    color: #5a5656;
+}
+.next-btn:hover {
+    background-color: #3dc66a;
+    transition: 0.4s;
 }
 .fa-check {
-   
-    
+   color: #97daad;
 }
-.input-audio-group i {
+.icon {
+    display: none;
+}
+.icon-show {
+    display: block;
+    position: absolute;
+    right: 20px;
+}
+
+
+/*.input-audio-group i {
     display: none;
     color: #97daad;
-}
+/* }* */
+@media screen and (max-width: 500px) {
+    .next-btn {
+        width: 100%;
+    }
+    .input-audio-group {
+        flex-direction: column;
+        height: auto;
+    }
+    .single-input-group {
+        width: 100%;
+    }
+    
+  }
+  

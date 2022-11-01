@@ -16,6 +16,10 @@ let audioPlayer = document.querySelector(".task-audio");
 let audioFirst = document.querySelector(".audio-player-0");
 let audioSecond = document.querySelector(".audio-player-1");
 let audioThird = document.querySelector(".audio-player-2");
+let iconFirst = document.querySelector(".icon-0");
+let iconSecond = document.querySelector(".icon-1");
+let iconThird = document.querySelector(".icon-2");
+let iconTranslate = document.querySelector(".icon-3");
 let rndVerb;
 let rndForm;
 let str = "";
@@ -30,27 +34,29 @@ fetch(verbsLink)
             GenerateTask();
         });
         inputFirstForm.addEventListener("input", function() {
-            CheckCorrectness(0, inputFirstForm, audioFirst);
+            CheckCorrectness(0, inputFirstForm, audioFirst, iconFirst);
         });
         inputSecondForm.addEventListener("input", function() {
-            CheckCorrectness(1, inputSecondForm, audioSecond);
+            CheckCorrectness(1, inputSecondForm, audioSecond, iconSecond);
         });
         inputThirdForm.addEventListener("input", function() {
-            CheckCorrectness(2, inputThirdForm, audioThird);
+            CheckCorrectness(2, inputThirdForm, audioThird, iconThird);
         });
         inputTranslateForm.addEventListener("input", function() {
-            CheckCorrectness(3, inputTranslateForm);
+            CheckCorrectness(3, inputTranslateForm, undefined, iconTranslate);
         });
     }
 )
 
-function CheckCorrectness(i, form, customisableForm) {
+function CheckCorrectness(i, form, customisableForm, icon) {
     let userAns = form.value.trim().toLowerCase();
     if (userAns === verbsArray[rndVerb][i]) {
         form.classList.add("correct-input");
+        icon.classList.add("icon-show");
         //form.style.backgroundColor = "#97daad";
         if (customisableForm != undefined) {
-            customisableForm.style.display = "block";
+            customisableForm.classList.add("answer-audio-show");
+            //customisableForm.style.display = "block";
         }
     }
     else if (verbsArray[rndVerb][i].includes("/")) {
@@ -64,23 +70,29 @@ function CheckCorrectness(i, form, customisableForm) {
         if (flag) {
             //form.style.backgroundColor = "#97daad";
             form.classList.add("correct-input");
+            icon.classList.add("icon-show");
             if (customisableForm != undefined) {
-                customisableForm.style.display = "block";
+                customisableForm.classList.add("answer-audio-show");
+                //customisableForm.style.display = "block";
             }
         }
         else {
             //form.style.backgroundColor = "white";
             form.classList.remove("correct-input");
+            icon.classList.remove("icon-show");
             if (customisableForm != undefined) {
-                customisableForm.style.display = "none";
+                customisableForm.classList.remove("answer-audio-show");
+                //customisableForm.style.display = "none";
             }
         }
     }
     else {
         //form.style.backgroundColor = "white";
+        icon.classList.remove("icon-show");
         form.classList.remove("correct-input");
         if (customisableForm != undefined) {
-            customisableForm.style.display = "none";
+            customisableForm.classList.remove("answer-audio-show");
+            //customisableForm.style.display = "none";
         }
     }
 }
