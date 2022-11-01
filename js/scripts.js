@@ -141,17 +141,17 @@ function ClearForm() {
     inputSecondForm.value = "";
     inputThirdForm.value = "";
     inputTranslateForm.value = "";
-    inputFirstForm.style.backgroundColor = "white";
-    inputSecondForm.style.backgroundColor = "white";
-    inputThirdForm.style.backgroundColor = "white";
-    inputTranslateForm.style.backgroundColor = "white";
     inputFirstForm.classList.remove("correct-input");
     inputSecondForm.classList.remove("correct-input");
     inputThirdForm.classList.remove("correct-input");
     inputTranslateForm.classList.remove("correct-input");
-    audioFirst.style.display = "none";
-    audioSecond.style.display = "none";
-    audioThird.style.display = "none";
+    iconFirst.classList.remove("icon-show");
+    iconSecond.classList.remove("icon-show");
+    iconThird.classList.remove("icon-show");
+    iconTranslate.classList.remove("icon-show");
+    audioFirst.classList.remove("answer-audio-show");
+    audioSecond.classList.remove("answer-audio-show");
+    audioThird.classList.remove("answer-audio-show");
 }
 /*audioFirst.onerror = function() {
     audioFirst.src = `https://packs.shtooka.net/eng-wcp-us/mp3/En-us-to_${verbsArray[rndVerb][0]}.mp3`;
