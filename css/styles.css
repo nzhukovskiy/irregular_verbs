@@ -106,7 +106,7 @@ input {
     color: #97daad;
 /* }* */
 @media screen and (max-width: 500px) {
-    .next-btn {
+    .next-btn, .check-btn {
         width: 100%;
     }
     .input-audio-group {
